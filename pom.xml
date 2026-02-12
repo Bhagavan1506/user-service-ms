@@ -144,4 +144,15 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>http://ec2-3-110-130-15.ap-south-1.compute.amazonaws.com:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <url>http://ec2-3-110-130-15.ap-south-1.compute.amazonaws.com:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
