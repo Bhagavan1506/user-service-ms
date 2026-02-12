@@ -85,6 +85,12 @@ pipeline {
             }
         }
 
+        stage('Deploy StorageClass to Kubernetes') {
+            steps {
+                sh 'user-storageclass.yaml'
+            }
+        }
+
         stage('Deploy MySQL to Kubernetes') {
             steps {
                 sh 'kubectl apply -f user_mysql_deployment.yaml'
