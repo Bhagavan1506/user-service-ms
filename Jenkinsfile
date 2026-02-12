@@ -14,7 +14,7 @@ pipeline {
         
         stage('Git Checkout ') {
             steps {
-               git branch: 'main', url: 'https://github.com/Bhagavan1506/BoardgameListingWebApp.git'
+               git branch: 'main', url: 'https://github.com/Bhagavan1506/user-service-ms.git'
             }
         }
         
@@ -64,14 +64,14 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-creds',toolName: 'docker') {
-                    sh "docker build -t bhagavanbongi/boardgame:latest ."
+                    sh "docker build -t bhagavanbongi/user-service-ms:latest ."
                  }
                }
             }
         }
         stage('Docker Image Scan') {
             steps {
-                sh 'trivy image --format table -o trivy-fs-report1.html bhagavanbongi/boardgame:latest'
+                sh 'trivy image --format table -o trivy-fs-report1.html bhagavanbongi/user-service-ms:latest'
             }
         }
         
@@ -79,15 +79,21 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-creds',toolName: 'docker') {
-                    sh "docker push bhagavanbongi/boardgame:latest"
+                    sh "docker push bhagavanbongi/user-service-ms:latest"
                  }
                }
+            }
+        }
+
+        stage('Deploy MySQL to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f user_mysql_deployment'
             }
         }
         
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deployment-service.yaml'
+                sh 'kubectl apply -f user_deployment.yaml'
             }
         }
         
