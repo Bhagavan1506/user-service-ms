@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: bhagavanbongi/userservice-rms:v1
+          image: bhagavanbongi/user-service-ms:latest
           imagePullPolicy: Always
           ports:
           - containerPort: 8050
