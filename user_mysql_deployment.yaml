@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: gp2
+  storageClassName: gp2   # use the default gp2
 ---
 apiVersion: apps/v1
 kind: Deployment
