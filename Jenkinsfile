@@ -91,7 +91,7 @@ pipeline {
             }
         }
 
-        stage('Deploy MySQL to Kubernetes') {
+        stage('Deploy PVC_MySQL to Kubernetes') {
             steps {
                 sh 'kubectl apply -f user_mysql_deployment.yaml'
             }
@@ -105,8 +105,11 @@ pipeline {
         
         stage('Verify Deployment') {
             steps {
-               sh 'kubectl get pods'
+               sh 'kubectl get nodes'
+                sh 'kubectl get all'
+                sh 'kubectl get pods'
                sh 'kubectl get svc'
+                sh 'kubectl get pvc'
             }
         }
     }
