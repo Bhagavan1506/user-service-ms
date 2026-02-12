@@ -14,7 +14,7 @@ pipeline {
         
         stage('Git Checkout ') {
             steps {
-               git branch: 'main', url: 'https://github.com/Bhagavan1506/user-service-ms.git'
+               git branch: 'master', url: 'https://github.com/Bhagavan1506/user-service-ms.git'
             }
         }
         
