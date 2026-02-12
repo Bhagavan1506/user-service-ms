@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: bhagavanbongi/userservice-rms:v1
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8050
+          env:
+          - name: DB_HOST
+            value: user-database-service
+          - name: DB_NAME
+            value: userdb
+          - name: DB_USERNAME
+            value: root
+          - name: DB_PASSWORD
+            value: root     
+          - name: DB_PORT
+            value: "3306"                   
+          - name: SPRING_APPLICATION_NAME
+            value: user-service
+          - name: SPRING_PROFILES_ACTIVE
+            value: cloud
+          - name: EUREKA_SERVER
+            value: eureka-service
+          - name: ZIPKIN_SERVER
+            value: zipkin-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8050
+      targetPort: 8050
