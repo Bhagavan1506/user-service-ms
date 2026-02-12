@@ -39,7 +39,7 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                withSonarQubeEnv('sonarQube'){
-                   sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=OnlineGame \
+                   sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=User-MicroService \
                    -Dsonar.java.binaries=. \
                    -Dsonar.projectKey=OnlineGame '''
                }
@@ -87,7 +87,7 @@ pipeline {
 
         stage('Deploy MySQL to Kubernetes') {
             steps {
-                sh 'kubectl apply -f user_mysql_deployment'
+                sh 'kubectl apply -f user_mysql_deployment.yaml'
             }
         }
         
