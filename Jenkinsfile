@@ -87,7 +87,7 @@ pipeline {
 
         stage('Deploy StorageClass to Kubernetes') {
             steps {
-                sh 'user-storageclass.yaml'
+                sh 'kubectl apply -f user-storageclass.yaml'
             }
         }
 
